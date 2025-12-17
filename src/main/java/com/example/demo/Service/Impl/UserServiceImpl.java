@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 @Service
-public class UserServiceimpl implements UserService {
+public class UserServiceImpl implements UserService {
     @Autowired
     Userrepositories userrep;
     public User register(User user){

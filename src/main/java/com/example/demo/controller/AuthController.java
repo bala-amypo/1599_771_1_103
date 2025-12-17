@@ -11,9 +11,9 @@ import com.example.demo.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @Tag(name = "Authentication Endpoints")
-public class Authcontroller {
+public class AuthController {
     @Autowired
     UserService userserv;
     @PostMapping("/register")
