@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 
 @Entity
 public class User {
@@ -13,9 +14,10 @@ public class User {
     private Long id;
     private String name;
     @Column(unique = true)
+
     private String email;
     private String password;
-    private String role;
+    private String role="ANALYST";
     public User(){}
     public User(Long id, String name, String email, String password, String role) {
         this.id = id;
