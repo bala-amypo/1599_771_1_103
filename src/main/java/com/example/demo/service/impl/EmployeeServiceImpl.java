@@ -4,48 +4,32 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.model.Employee;
-import com.example.demo.repositories.EmployeeRepository;
+import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.service.EmployeeService;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
-    private EmployeeRepository emprep;
+    private EmployeeRepository repository;
 
-    @Override
     public Employee createEmployee(Employee employee) {
-        if (emprep.existsByEmail(employee.getEmail())) {
-            throw new RuntimeException(
-                "Employee with email " + employee.getEmail() + " already exists"
-            );
+        if (repository.existsByEmail(employee.getEmail())) {
+            throw new RuntimeException("Email already exists");
         }
-        return emprep.save(employee);
+        return repository.save(employee);
     }
 
-    @Override
     public Employee getEmployee(Long id) {
-        return emprep.findById(id)
+        return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
-    @Override
-    public Employee updateEmployee(Long id, Employee employee) {
-        Employee existing = getEmployee(id);
-        existing.setFullName(employee.getFullName());
-        existing.setSkills(employee.getSkills());
-        existing.setMaxWeeklyHours(employee.getMaxWeeklyHours());
-        existing.setRole(employee.getRole());
-        return emprep.save(existing);
-    }
-
-    @Override
     public void deleteEmployee(Long id) {
-        emprep.delete(getEmployee(id));
+        repository.delete(getEmployee(id));
     }
 
-    @Override
     public List<Employee> getAll() {
-        return emprep.findAll();
+        return repository.findAll();
     }
 }

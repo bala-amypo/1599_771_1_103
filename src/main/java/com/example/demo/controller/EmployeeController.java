@@ -11,26 +11,20 @@ import com.example.demo.service.EmployeeService;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeService service;
 
-    @PostMapping("/register")
-    public Employee register(@RequestBody Employee employee) {
-        return employeeService.createEmployee(employee);
+    @PostMapping
+    public Employee create(@RequestBody Employee employee) {
+        return service.createEmployee(employee);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Employee> getAll() {
-        return employeeService.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public Employee getById(@PathVariable Long id) {
-        return employeeService.getEmployee(id);
+        return service.getAll();
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
-        return "Employee deleted successfully";
+    public void delete(@PathVariable Long id) {
+        service.deleteEmployee(id);
     }
 }
