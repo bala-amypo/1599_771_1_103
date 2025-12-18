@@ -5,6 +5,7 @@ import com.example.demo.model.ShiftTemplate;
 import com.example.demo.repository.DepartmentRepository;
 import com.example.demo.repository.ShiftTemplateRepository;
 import com.example.demo.service.ShiftTemplateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,16 +13,11 @@ import java.util.List;
 @Service
 public class ShiftTemplateServiceImpl implements ShiftTemplateService {
 
-    private final ShiftTemplateRepository shiftTemplateRepository;
-    private final DepartmentRepository departmentRepository;
+    @Autowired
+    private ShiftTemplateRepository shiftTemplateRepository;
 
-    public ShiftTemplateServiceImpl(
-            ShiftTemplateRepository shiftTemplateRepository,
-            DepartmentRepository departmentRepository) {
-
-        this.shiftTemplateRepository = shiftTemplateRepository;
-        this.departmentRepository = departmentRepository;
-    }
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Override
     public ShiftTemplate create(Long departmentId, ShiftTemplate template) {
