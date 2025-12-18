@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.portal.model;
 
 import jakarta.persistence.*;
 
@@ -17,9 +17,11 @@ public class User {
 
     private String password;
 
-    private String role = "ANALYST";
+    private String role ;
 
-    public User() {}
+    public User() {
+        this.role="ANALYST";
+    }
 
     public User(Long id, String name, String email, String password, String role) {
         this.id = id;
@@ -39,5 +41,6 @@ public class User {
     public void setName(String name) { this.name = name; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
-    public void setRole(String role) { this.role = role; }
+    public void setRole(String role) { 
+        this.role = (role == null || role.isEmpty()) ? "ANALYST" : role; }
 }
