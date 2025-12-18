@@ -4,7 +4,7 @@ import com.example.demo.model.EmployeeAvailability;
 import com.example.demo.service.AvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,13 +16,13 @@ public class AvailabilityController {
     private AvailabilityService availabilityService;
 
     @PostMapping("/{employeeId}")
-    public EmployeeAvailability create(@PathVariable Long employeeId,
+    public EmployeeAvailability create(@Valid@PathVariable Long employeeId,
                                        @RequestBody EmployeeAvailability availability) {
         return availabilityService.create(employeeId, availability);
     }
 
     @PutMapping("/{id}")
-    public EmployeeAvailability update(@PathVariable Long id,
+    public EmployeeAvailability update(@Valid@PathVariable Long id,
                                        @RequestBody EmployeeAvailability availability) {
         return availabilityService.update(id, availability);
     }

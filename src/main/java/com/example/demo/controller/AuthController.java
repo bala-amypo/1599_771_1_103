@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-
+import jakarta.validation.Valid;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ public class AuthController {
     private UserService userService;
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
+    public User register(@Valid@RequestBody User user) {
         return userService.register(user);
     }
 
