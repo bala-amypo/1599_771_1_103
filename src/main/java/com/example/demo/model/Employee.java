@@ -12,30 +12,23 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String fullName;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String email;
 
-    @Column(nullable = false)
     private String role;
 
-    @Column(nullable = false)
     private String skills;
 
-    @Column(nullable = false)
     private Integer maxWeeklyHours;
 
-    @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    // Default constructor (JPA + default role)
     public Employee() {
         this.role = "STAFF";
     }
 
-    // Parameterized constructor (includes id as per your style)
     public Employee(Long id,
                     String fullName,
                     String email,
@@ -53,7 +46,6 @@ public class Employee {
         this.createdAt = createdAt;
     }
 
-    // Auto-generate createdAt
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -76,7 +68,6 @@ public class Employee {
     }
 
     public void setSkills(String skills) { this.skills = skills; }
-
     public void setMaxWeeklyHours(Integer maxWeeklyHours) {
         this.maxWeeklyHours = maxWeeklyHours;
     }
