@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-
+import jakarta.validation.Valid;
 import com.example.demo.model.Department;
 import com.example.demo.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     @PostMapping
-    public Department create(@RequestBody Department department) {
+    public Department create(@Valid@RequestBody Department department) {
         return departmentService.create(department);
     }
 

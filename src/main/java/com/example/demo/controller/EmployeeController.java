@@ -1,5 +1,5 @@
 package com.example.demo.controller;
-
+import jakarta.validation.Valid;
 import com.example.demo.model.Employee;
 import com.example.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @PostMapping
-    public Employee create(@RequestBody Employee employee) {
+    public Employee create(@Valid@RequestBody Employee employee) {
         return employeeService.create(employee);
     }
 

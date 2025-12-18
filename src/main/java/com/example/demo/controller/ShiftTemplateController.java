@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.ShiftTemplate;
 import com.example.demo.service.ShiftTemplateService;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +17,7 @@ public class ShiftTemplateController {
     }
 
     @PostMapping("/department/{departmentId}")
-    public ShiftTemplate create(
+    public ShiftTemplate create(@Valid
             @PathVariable Long departmentId,
             @RequestBody ShiftTemplate template) {
 
