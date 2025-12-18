@@ -20,7 +20,7 @@ public class ShiftTemplate {
     private LocalTime endTime;
 
     private String requiredSkills;
-
+    
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
