@@ -1,7 +1,6 @@
 package com.example.demo.model;
 
 import java.time.LocalTime;
-import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -20,13 +19,10 @@ public class ShiftTemplate {
     private LocalTime endTime;
 
     private String requiredSkills;
-    
+
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-
-    @OneToMany(mappedBy = "shiftTemplate")
-    private List<GeneratedShiftSchedule> generatedSchedules;
 
     public ShiftTemplate() {}
 
