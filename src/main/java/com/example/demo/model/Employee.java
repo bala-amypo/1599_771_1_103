@@ -3,6 +3,7 @@ package com.example.demo.model;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "employees")
@@ -14,6 +15,7 @@ public class Employee {
 
     private String fullName;
 
+    @Email
     @Column(unique = true)
     private String email;
 
