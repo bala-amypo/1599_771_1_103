@@ -1,10 +1,8 @@
 package com.example.demo.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.model.Employee;
 import com.example.demo.repositories.EmployeeRepository;
 import com.example.demo.service.EmployeeService;
@@ -34,19 +32,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee updateEmployee(Long id, Employee employee) {
         Employee existing = getEmployee(id);
-
         existing.setFullName(employee.getFullName());
         existing.setSkills(employee.getSkills());
         existing.setMaxWeeklyHours(employee.getMaxWeeklyHours());
         existing.setRole(employee.getRole());
-
         return emprep.save(existing);
     }
 
     @Override
     public void deleteEmployee(Long id) {
-        Employee employee = getEmployee(id);
-        emprep.delete(employee);
+        emprep.delete(getEmployee(id));
     }
 
     @Override
