@@ -1,35 +1,46 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
-    private EmployeeRepository repository;
+    private EmployeeRepository employeeRepository;
 
-    public Employee createEmployee(Employee employee) {
-        if (repository.existsByEmail(employee.getEmail())) {
-            throw new RuntimeException("Email already exists");
+    @Override
+    public Employee create(Employee employee) {
+
+        if (employeeRepository.existsByEmail(employee.getEmail())) {
+            throw new RuntimeException("Employee already exists");
         }
-        return repository.save(employee);
+
+        if (employee.getMaxWeeklyHours() <= 0) {
+            throw new RuntimeException("Max weekly hours must be greater than 0");
+        }
+
+        return employeeRepository.save(employee);
     }
 
-    public Employee getEmployee(Long id) {
-        return repository.findById(id)
+    @Override
+    public Employee get(Long id) {
+        return employeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
-    public void deleteEmployee(Long id) {
-        repository.delete(getEmployee(id));
+    @Override
+    public List<Employee> getAll() {
+        return employeeRepository.findAll();
     }
 
-    public List<Employee> getAll() {
-        return repository.findAll();
+    @Override
+    public void delete(Long id) {
+        employeeRepository.delete(get(id));
     }
 }
