@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.ScheduleService;
@@ -72,7 +73,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
 
         if (result.isEmpty()) {
-            throw new RuntimeException("Schedules not found");
+            throw new ResourceNotFoundException("Schedules not found");
         }
 
         return result;
@@ -85,7 +86,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 scheduleRepository.findByShiftDate(date);
 
         if (schedules.isEmpty()) {
-            throw new RuntimeException("Schedules not found");
+            throw new ResourceNotFoundException("Schedules not found");
         }
         return schedules;
     }

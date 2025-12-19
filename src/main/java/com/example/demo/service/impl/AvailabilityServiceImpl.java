@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Employee;
 import com.example.demo.model.EmployeeAvailability;
 import com.example.demo.repository.AvailabilityRepository;
@@ -26,7 +27,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
 
         Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() ->
-                        new RuntimeException("Employee not found"));
+                        new ResourceNotFoundException("Employee not found"));
 
         availabilityRepository
                 .findByEmployee_IdAndAvailableDate(
@@ -46,7 +47,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         EmployeeAvailability existing =
                 availabilityRepository.findById(id)
                         .orElseThrow(() ->
-                                new RuntimeException("Availability not found"));
+                                new ResourceNotFoundException("Availability not found"));
 
         existing.setAvailable(availability.getAvailable());
         existing.setAvailableDate(availability.getAvailableDate());
@@ -59,7 +60,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         EmployeeAvailability availability =
                 availabilityRepository.findById(id)
                         .orElseThrow(() ->
-                                new RuntimeException("Availability not found"));
+                                new ResourceNotFoundException("Availability not found"));
 
         availabilityRepository.delete(availability);
     }
