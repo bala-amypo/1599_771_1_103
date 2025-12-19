@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Department;
 import com.example.demo.model.ShiftTemplate;
 import com.example.demo.repository.DepartmentRepository;
@@ -23,7 +24,8 @@ public class ShiftTemplateServiceImpl implements ShiftTemplateService {
     public ShiftTemplate create(Long departmentId, ShiftTemplate template) {
 
         Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Department not found"));
 
         if (template.getEndTime().isBefore(template.getStartTime())
                 || template.getEndTime().equals(template.getStartTime())) {
@@ -49,6 +51,7 @@ public class ShiftTemplateServiceImpl implements ShiftTemplateService {
     @Override
     public ShiftTemplate getTemplate(Long id) {
         return shiftTemplateRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Template not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Template not found"));
     }
 }
