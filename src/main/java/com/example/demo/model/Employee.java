@@ -31,6 +31,9 @@ public class Employee {
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+    public Employee() {
+}
+
 
     public Employee(Long id, String fullName, String email, String role, String skills, Integer maxWeeklyHours) {
         this.id = id;

@@ -31,6 +31,9 @@ public class Department {
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
+    public Department() {
+}
+
 
     public Department(Long id, String name, String description, String requiredSkills) {
         this.id = id;
