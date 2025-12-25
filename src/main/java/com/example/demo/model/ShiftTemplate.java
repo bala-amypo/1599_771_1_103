@@ -28,16 +28,38 @@ public class ShiftTemplate {
     private List<GeneratedShiftSchedule> schedules;
 
     public ShiftTemplate() {
-    }
+}
 
-    public ShiftTemplate(Long id, String templateName, LocalTime startTime, LocalTime endTime, String requiredSkills, Department department) {
-        this.id = id;
-        this.templateName = templateName;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.requiredSkills = requiredSkills;
-        this.department = department;
-    }
+public ShiftTemplate(
+        String templateName,
+        LocalTime startTime,
+        LocalTime endTime,
+        String requiredSkills,
+        Department department
+) {
+    this.templateName = templateName;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.requiredSkills = requiredSkills;
+    this.department = department;
+}
+
+public ShiftTemplate(
+        Long id,
+        String templateName,
+        LocalTime startTime,
+        LocalTime endTime,
+        String requiredSkills,
+        Department department
+) {
+    this.id = id;
+    this.templateName = templateName;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.requiredSkills = requiredSkills;
+    this.department = department;
+}
+
 
     public Long getId() {
         return id;

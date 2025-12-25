@@ -31,18 +31,42 @@ public class GeneratedShiftSchedule {
     private Employee employee;
 
     public GeneratedShiftSchedule() {
-    }
+}
 
-    public GeneratedShiftSchedule(Long id, LocalDate shiftDate, LocalTime startTime, LocalTime endTime,
-                                  ShiftTemplate shiftTemplate, Department department, Employee employee) {
-        this.id = id;
-        this.shiftDate = shiftDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.shiftTemplate = shiftTemplate;
-        this.department = department;
-        this.employee = employee;
-    }
+public GeneratedShiftSchedule(
+        LocalDate shiftDate,
+        LocalTime startTime,
+        LocalTime endTime,
+        ShiftTemplate shiftTemplate,
+        Department department,
+        Employee employee
+) {
+    this.shiftDate = shiftDate;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.shiftTemplate = shiftTemplate;
+    this.department = department;
+    this.employee = employee;
+}
+
+public GeneratedShiftSchedule(
+        Long id,
+        LocalDate shiftDate,
+        LocalTime startTime,
+        LocalTime endTime,
+        ShiftTemplate shiftTemplate,
+        Department department,
+        Employee employee
+) {
+    this.id = id;
+    this.shiftDate = shiftDate;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.shiftTemplate = shiftTemplate;
+    this.department = department;
+    this.employee = employee;
+}
+
 
     public Long getId() {
         return id;

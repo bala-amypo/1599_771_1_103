@@ -23,14 +23,21 @@ public class EmployeeAvailability {
     private Boolean available;
 
     public EmployeeAvailability() {
-    }
+}
 
-    public EmployeeAvailability(Long id, Employee employee, LocalDate availableDate, Boolean available) {
-        this.id = id;
-        this.employee = employee;
-        this.availableDate = availableDate;
-        this.available = available;
-    }
+public EmployeeAvailability(Employee employee, LocalDate availableDate, Boolean available) {
+    this.employee = employee;
+    this.availableDate = availableDate;
+    this.available = available;
+}
+
+public EmployeeAvailability(Long id, Employee employee, LocalDate availableDate, Boolean available) {
+    this.id = id;
+    this.employee = employee;
+    this.availableDate = availableDate;
+    this.available = available;
+}
+
 
     public Long getId() {
         return id;
