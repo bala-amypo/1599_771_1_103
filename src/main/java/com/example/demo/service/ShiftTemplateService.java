@@ -1,8 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ShiftTemplate;
-
 import java.util.List;
+import com.example.demo.model.ShiftTemplate;
 
 public interface ShiftTemplateService {
 
