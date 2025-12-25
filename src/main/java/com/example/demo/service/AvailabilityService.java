@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import com.example.demo.model.EmployeeAvailability;
 
 public interface AvailabilityService {
@@ -13,6 +14,4 @@ public interface AvailabilityService {
     void delete(Long id);
 
     List<EmployeeAvailability> getByDate(LocalDate date);
-
-    List<EmployeeAvailability> getByEmployee(Long employeeId);
 }

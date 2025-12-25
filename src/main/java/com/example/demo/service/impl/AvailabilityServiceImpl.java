@@ -17,24 +17,19 @@ public class AvailabilityServiceImpl implements AvailabilityService {
     private final AvailabilityRepository availabilityRepository;
     private final EmployeeRepository employeeRepository;
 
-    public AvailabilityServiceImpl(AvailabilityRepository availabilityRepository,
-                                   EmployeeRepository employeeRepository) {
+    public AvailabilityServiceImpl(
+            AvailabilityRepository availabilityRepository,
+            EmployeeRepository employeeRepository) {
         this.availabilityRepository = availabilityRepository;
         this.employeeRepository = employeeRepository;
     }
 
     @Override
     public EmployeeAvailability create(Long employeeId, EmployeeAvailability availability) {
-        Employee emp = employeeRepository.findById(employeeId)
+        Employee employee = employeeRepository.findById(employeeId)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
 
-        availabilityRepository
-                .findByEmployee_IdAndAvailableDate(employeeId, availability.getAvailableDate())
-                .ifPresent(a -> {
-                    throw new RuntimeException("Availability already exists");
-                });
-
-        availability.setEmployee(emp);
+        availability.setEmployee(employee);
         return availabilityRepository.save(availability);
     }
 
@@ -50,18 +45,11 @@ public class AvailabilityServiceImpl implements AvailabilityService {
 
     @Override
     public void delete(Long id) {
-        EmployeeAvailability availability = availabilityRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Availability not found"));
-        availabilityRepository.delete(availability);
+        availabilityRepository.deleteById(id);
     }
 
     @Override
     public List<EmployeeAvailability> getByDate(LocalDate date) {
         return availabilityRepository.findByAvailableDateAndAvailable(date, true);
-    }
-
-    @Override
-    public List<EmployeeAvailability> getByEmployee(Long employeeId) {
-        return availabilityRepository.findByEmployee_Id(employeeId);
     }
 }
