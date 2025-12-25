@@ -20,15 +20,23 @@ public class User {
     private String role;
 
     public User() {
-    }
+}
 
-    public User(Long id, String name, String email, String password, String role) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
+public User(String name, String email, String password, String role) {
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+}
+
+public User(Long id, String name, String email, String password, String role) {
+    this.id = id;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+    this.role = role;
+}
+
 
     public Long getId() {
         return id;

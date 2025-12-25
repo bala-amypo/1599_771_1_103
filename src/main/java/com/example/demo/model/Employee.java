@@ -24,24 +24,30 @@ public class Employee {
 
     private LocalDateTime createdAt;
 
-    public Employee() {
-    }
-
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
-    
+    public Employee() {
+}
 
+public Employee(String fullName, String email, String role, String skills, Integer maxWeeklyHours) {
+    this.fullName = fullName;
+    this.email = email;
+    this.role = role;
+    this.skills = skills;
+    this.maxWeeklyHours = maxWeeklyHours;
+}
 
-    public Employee(Long id, String fullName, String email, String role, String skills, Integer maxWeeklyHours) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.role = role;
-        this.skills = skills;
-        this.maxWeeklyHours = maxWeeklyHours;
-    }
+public Employee(Long id, String fullName, String email, String role, String skills, Integer maxWeeklyHours) {
+    this.id = id;
+    this.fullName = fullName;
+    this.email = email;
+    this.role = role;
+    this.skills = skills;
+    this.maxWeeklyHours = maxWeeklyHours;
+}
+
 
     public Long getId() {
         return id;

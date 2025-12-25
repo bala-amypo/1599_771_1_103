@@ -24,21 +24,28 @@ public class Department {
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<ShiftTemplate> shiftTemplates;
 
-    public Department() {
-    }
 
     @PrePersist
     public void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 
+public Department() {
+}
 
-    public Department(Long id, String name, String description, String requiredSkills) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.requiredSkills = requiredSkills;
-    }
+public Department(String name, String description, String requiredSkills) {
+    this.name = name;
+    this.description = description;
+    this.requiredSkills = requiredSkills;
+}
+
+public Department(Long id, String name, String description, String requiredSkills) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.requiredSkills = requiredSkills;
+}
+
 
     public Long getId() {
         return id;
