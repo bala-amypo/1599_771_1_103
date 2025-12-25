@@ -1,9 +1,7 @@
 package com.example.demo.model;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "employees")
@@ -15,7 +13,6 @@ public class Employee {
 
     private String fullName;
 
-    @Email
     @Column(unique = true)
     private String email;
 
@@ -28,24 +25,6 @@ public class Employee {
     private LocalDateTime createdAt;
 
     public Employee() {
-        this.role = "STAFF";
-    }
-
-    public Employee(Long id,
-                    String fullName,
-                    String email,
-                    String role,
-                    String skills,
-                    Integer maxWeeklyHours,
-                    LocalDateTime createdAt) {
-
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.role = (role == null || role.isEmpty()) ? "STAFF" : role;
-        this.skills = skills;
-        this.maxWeeklyHours = maxWeeklyHours;
-        this.createdAt = createdAt;
     }
 
     @PrePersist
@@ -53,24 +32,64 @@ public class Employee {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Long getId() { return id; }
-    public String getFullName() { return fullName; }
-    public String getEmail() { return email; }
-    public String getRole() { return role; }
-    public String getSkills() { return skills; }
-    public Integer getMaxWeeklyHours() { return maxWeeklyHours; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-
-    public void setId(Long id) { this.id = id; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
-    public void setEmail(String email) { this.email = email; }
-
-    public void setRole(String role) {
-        this.role = (role == null || role.isEmpty()) ? "STAFF" : role;
+    public Employee(Long id, String fullName, String email, String role, String skills, Integer maxWeeklyHours) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.role = role;
+        this.skills = skills;
+        this.maxWeeklyHours = maxWeeklyHours;
     }
 
-    public void setSkills(String skills) { this.skills = skills; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getSkills() {
+        return skills;
+    }
+
+    public void setSkills(String skills) {
+        this.skills = skills;
+    }
+
+    public Integer getMaxWeeklyHours() {
+        return maxWeeklyHours;
+    }
+
     public void setMaxWeeklyHours(Integer maxWeeklyHours) {
         this.maxWeeklyHours = maxWeeklyHours;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

@@ -1,9 +1,8 @@
 package com.example.demo.model;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
-import jakarta.persistence.*;
 
 @Entity
 @Table(name = "generated_shift_schedules")
@@ -31,15 +30,11 @@ public class GeneratedShiftSchedule {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    public GeneratedShiftSchedule() {}
+    public GeneratedShiftSchedule() {
+    }
 
-    public GeneratedShiftSchedule(Long id,
-                                  LocalDate shiftDate,
-                                  LocalTime startTime,
-                                  LocalTime endTime,
-                                  ShiftTemplate shiftTemplate,
-                                  Department department,
-                                  Employee employee) {
+    public GeneratedShiftSchedule(Long id, LocalDate shiftDate, LocalTime startTime, LocalTime endTime,
+                                  ShiftTemplate shiftTemplate, Department department, Employee employee) {
         this.id = id;
         this.shiftDate = shiftDate;
         this.startTime = startTime;
@@ -49,24 +44,58 @@ public class GeneratedShiftSchedule {
         this.employee = employee;
     }
 
-    public Long getId() { return id; }
-    public LocalDate getShiftDate() { return shiftDate; }
-    public LocalTime getStartTime() { return startTime; }
-    public LocalTime getEndTime() { return endTime; }
-    public ShiftTemplate getShiftTemplate() { return shiftTemplate; }
-    public Department getDepartment() { return department; }
-    public Employee getEmployee() { return employee; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
-    public void setShiftDate(LocalDate shiftDate) { this.shiftDate = shiftDate; }
-    public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
-    public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDate getShiftDate() {
+        return shiftDate;
+    }
+
+    public void setShiftDate(LocalDate shiftDate) {
+        this.shiftDate = shiftDate;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public ShiftTemplate getShiftTemplate() {
+        return shiftTemplate;
+    }
+
     public void setShiftTemplate(ShiftTemplate shiftTemplate) {
         this.shiftTemplate = shiftTemplate;
     }
+
+    public Department getDepartment() {
+        return department;
+    }
+
     public void setDepartment(Department department) {
         this.department = department;
     }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
