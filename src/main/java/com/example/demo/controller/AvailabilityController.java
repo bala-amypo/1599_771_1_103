@@ -19,9 +19,8 @@ public class AvailabilityController {
     }
 
     @PostMapping("/{employeeId}")
-    public EmployeeAvailability create(
-            @PathVariable Long employeeId,
-            @RequestBody EmployeeAvailability availability) {
+    public EmployeeAvailability create(@PathVariable Long employeeId,
+                                       @RequestBody EmployeeAvailability availability) {
         return availabilityService.create(employeeId, availability);
     }
 
@@ -30,13 +29,13 @@ public class AvailabilityController {
         return availabilityService.getByEmployee(employeeId);
     }
 
-    @GetMapping("/{availabilityId}")
-    public EmployeeAvailability get(@PathVariable Long availabilityId) {
-        return availabilityService.update(availabilityId, new EmployeeAvailability());
-    }
-
     @GetMapping("/date/{date}")
     public List<EmployeeAvailability> getByDate(@PathVariable LocalDate date) {
         return availabilityService.getByDate(date);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        availabilityService.delete(id);
     }
 }
