@@ -19,11 +19,12 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final GeneratedShiftScheduleRepository scheduleRepository;
     private final DepartmentRepository departmentRepository;
 
-    public ScheduleServiceImpl(ShiftTemplateRepository shiftTemplateRepository,
-                               AvailabilityRepository availabilityRepository,
-                               EmployeeRepository employeeRepository,
-                               GeneratedShiftScheduleRepository scheduleRepository,
-                               DepartmentRepository departmentRepository) {
+    public ScheduleServiceImpl(
+            ShiftTemplateRepository shiftTemplateRepository,
+            AvailabilityRepository availabilityRepository,
+            EmployeeRepository employeeRepository,
+            GeneratedShiftScheduleRepository scheduleRepository,
+            DepartmentRepository departmentRepository) {
         this.shiftTemplateRepository = shiftTemplateRepository;
         this.availabilityRepository = availabilityRepository;
         this.employeeRepository = employeeRepository;
@@ -33,31 +34,30 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Override
     public List<GeneratedShiftSchedule> generateForDate(LocalDate date) {
+
         List<GeneratedShiftSchedule> result = new ArrayList<>();
 
         for (Department dept : departmentRepository.findAll()) {
-            List<ShiftTemplate> templates = shiftTemplateRepository.findByDepartment_Id(dept.getId());
 
-            for (ShiftTemplate template : templates) {
-                List<EmployeeAvailability> availableList =
-                        availabilityRepository.findByAvailableDateAndAvailable(date, true);
+            for (ShiftTemplate template :
+                    shiftTemplateRepository.findByDepartment_Id(dept.getId())) {
 
-                for (EmployeeAvailability ea : availableList) {
-                    Employee emp = ea.getEmployee();
+                for (EmployeeAvailability av :
+                        availabilityRepository.findByAvailableDateAndAvailable(date, true)) {
 
-                    if (emp.getSkills() != null &&
-                        template.getRequiredSkills() != null &&
-                        emp.getSkills().contains(template.getRequiredSkills())) {
+                    Employee emp = av.getEmployee();
 
-                        GeneratedShiftSchedule schedule = new GeneratedShiftSchedule();
-                        schedule.setShiftDate(date);
-                        schedule.setStartTime(template.getStartTime());
-                        schedule.setEndTime(template.getEndTime());
-                        schedule.setShiftTemplate(template);
-                        schedule.setDepartment(dept);
-                        schedule.setEmployee(emp);
+                    if (emp.getSkills().containsAll(template.getRequiredSkillsSet())) {
 
-                        result.add(scheduleRepository.save(schedule));
+                        GeneratedShiftSchedule g = new GeneratedShiftSchedule();
+                        g.setShiftDate(date);
+                        g.setStartTime(template.getStartTime());
+                        g.setEndTime(template.getEndTime());
+                        g.setDepartment(dept);
+                        g.setEmployee(emp);
+                        g.setShiftTemplate(template);
+
+                        result.add(scheduleRepository.save(g));
                         break;
                     }
                 }

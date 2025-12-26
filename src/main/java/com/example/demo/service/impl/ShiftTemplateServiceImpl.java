@@ -24,16 +24,23 @@ public class ShiftTemplateServiceImpl implements ShiftTemplateService {
     }
 
     @Override
-    public ShiftTemplate create(Long departmentId, ShiftTemplate shiftTemplate) {
-        Department department = departmentRepository.findById(departmentId)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+    public ShiftTemplate create(ShiftTemplate template) {
 
-        if (!shiftTemplate.getEndTime().isAfter(shiftTemplate.getStartTime())) {
-            throw new RuntimeException("end time must be after start time");
-        }
+        Department dept = departmentRepository.findById(
+                template.getDepartment().getId())
+                .orElseThrow(() -> new RuntimeException("not found"));
 
-        shiftTemplate.setDepartment(department);
-        return shiftTemplateRepository.save(shiftTemplate);
+        if (!template.getEndTime().isAfter(template.getStartTime()))
+            throw new RuntimeException("after");
+
+        if (shiftTemplateRepository
+                .findByTemplateNameAndDepartment_Id(
+                        template.getTemplateName(), dept.getId())
+                .isPresent())
+            throw new RuntimeException("unique");
+
+        template.setDepartment(dept);
+        return shiftTemplateRepository.save(template);
     }
 
     @Override
@@ -44,6 +51,6 @@ public class ShiftTemplateServiceImpl implements ShiftTemplateService {
     @Override
     public ShiftTemplate getTemplate(Long id) {
         return shiftTemplateRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("ShiftTemplate not found"));
+                .orElseThrow(() -> new RuntimeException("not found"));
     }
 }

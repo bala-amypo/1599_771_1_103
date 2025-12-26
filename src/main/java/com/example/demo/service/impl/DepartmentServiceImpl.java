@@ -19,22 +19,22 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department create(Department department) {
-        if (departmentRepository.existsByName(department.getName())) {
-            throw new RuntimeException("Department already exists");
-        }
+        if (departmentRepository.existsByName(department.getName()))
+            throw new RuntimeException("exists");
+
         return departmentRepository.save(department);
     }
 
     @Override
     public Department get(Long id) {
         return departmentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Department not found"));
+                .orElseThrow(() -> new RuntimeException("not found"));
     }
 
     @Override
     public void delete(Long id) {
-        Department dept = get(id);
-        departmentRepository.delete(dept);
+        Department d = get(id);
+        departmentRepository.delete(d);
     }
 
     @Override
