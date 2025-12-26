@@ -2,13 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.Department;
 import com.example.demo.service.DepartmentService;
 
-@RestController
-@RequestMapping("/api/departments")
 public class DepartmentController {
 
     private final DepartmentService departmentService;
@@ -17,23 +13,16 @@ public class DepartmentController {
         this.departmentService = departmentService;
     }
 
-    @PostMapping
-    public Department create(@RequestBody Department department) {
-        return departmentService.create(department);
+    public Response<Department> get(Long id) {
+        return new Response<>(departmentService.get(id));
     }
 
-    @GetMapping
-    public List<Department> getAll() {
-        return departmentService.getAll();
+    public Response<List<Department>> list() {
+        return new Response<>(departmentService.getAll());
     }
 
-    @GetMapping("/{id}")
-    public Department get(@PathVariable Long id) {
-        return departmentService.get(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public Response<String> delete(Long id) {
         departmentService.delete(id);
+        return new Response<>("Deleted");
     }
 }

@@ -3,13 +3,9 @@ package com.example.demo.controller;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.GeneratedShiftSchedule;
 import com.example.demo.service.ScheduleService;
 
-@RestController
-@RequestMapping("/api/schedules")
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
@@ -18,13 +14,13 @@ public class ScheduleController {
         this.scheduleService = scheduleService;
     }
 
-    @PostMapping("/generate/{date}")
-    public List<GeneratedShiftSchedule> generate(@PathVariable LocalDate date) {
-        return scheduleService.generateForDate(date);
+    public Response<List<GeneratedShiftSchedule>> generate(String date) {
+        LocalDate d = LocalDate.parse(date);
+        return new Response<>(scheduleService.generateForDate(d));
     }
 
-    @GetMapping("/date/{date}")
-    public List<GeneratedShiftSchedule> getByDate(@PathVariable LocalDate date) {
-        return scheduleService.getByDate(date);
+    public Response<List<GeneratedShiftSchedule>> byDate(String date) {
+        LocalDate d = LocalDate.parse(date);
+        return new Response<>(scheduleService.getByDate(d));
     }
 }

@@ -2,13 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.Employee;
 import com.example.demo.service.EmployeeService;
 
-@RestController
-@RequestMapping("/api/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -17,23 +13,16 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @PostMapping("/register")
-    public Employee create(@RequestBody Employee employee) {
-        return employeeService.createEmployee(employee);
+    public Response<List<Employee>> list() {
+        return new Response<>(employeeService.getAll());
     }
 
-    @GetMapping("/all")
-    public List<Employee> getAll() {
-        return employeeService.getAll();
+    public Response<Employee> get(Long id) {
+        return new Response<>(employeeService.getEmployee(id));
     }
 
-    @GetMapping("/{id}")
-    public Employee get(@PathVariable Long id) {
-        return employeeService.getEmployee(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public Response<String> delete(Long id) {
         employeeService.deleteEmployee(id);
+        return new Response<>("Deleted");
     }
 }
