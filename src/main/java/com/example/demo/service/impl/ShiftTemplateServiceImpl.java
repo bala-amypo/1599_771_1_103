@@ -53,4 +53,9 @@ public class ShiftTemplateServiceImpl implements ShiftTemplateService {
         return shiftTemplateRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("not found"));
     }
+    @Override
+public List<ShiftTemplate> getAll() {
+    return shiftTemplateRepository.findAll();
+}
+
 }

@@ -10,4 +10,7 @@ public interface ShiftTemplateService {
     List<ShiftTemplate> getByDepartment(Long departmentId);
 
     ShiftTemplate getTemplate(Long id);
+
+    // ✅ ADD THIS
+    List<ShiftTemplate> getAll();
 }
