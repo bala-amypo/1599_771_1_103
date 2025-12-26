@@ -1,14 +1,25 @@
 package com.example.demo.model;
 
-import java.util.Arrays;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+@Entity
+@Table(name = "departments")
 public class Department {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
     private String name;
+
     private String description;
+
     private String requiredSkills;
+
+    private LocalDateTime createdAt;
 
     public Department() {}
 
@@ -18,51 +29,23 @@ public class Department {
         this.requiredSkills = requiredSkills;
     }
 
+    @PrePersist
+    public void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
     public Set<String> getRequiredSkills() {
-        return Arrays.stream(requiredSkills.split(",")).collect(Collectors.toSet());
+        if (requiredSkills == null) return Set.of();
+        return Set.of(requiredSkills.split(","));
     }
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
     public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
     public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
     public String getRequiredSkillsRaw() { return requiredSkills; }
-}
-package com.example.demo.model;
 
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-public class Department {
-
-    private Long id;
-    private String name;
-    private String description;
-    private String requiredSkills;
-
-    public Department() {}
-
-    public Department(String name, String description, String requiredSkills) {
-        this.name = name;
-        this.description = description;
-        this.requiredSkills = requiredSkills;
-    }
-
-    public Set<String> getRequiredSkills() {
-        return Arrays.stream(requiredSkills.split(","))
-                .map(String::trim)
-                .collect(Collectors.toSet());
-    }
-
-    public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
-    public String getName() { return name; }
     public void setName(String name) { this.name = name; }
-
-    public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+    public void setRequiredSkills(String requiredSkills) { this.requiredSkills = requiredSkills; }
 }
