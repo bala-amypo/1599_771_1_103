@@ -14,4 +14,7 @@ public interface AvailabilityService {
     void delete(Long id);
 
     List<EmployeeAvailability> getByDate(LocalDate date);
+
+    // ✅ REQUIRED (controller uses this)
+    List<EmployeeAvailability> getByEmployee(Long employeeId);
 }
