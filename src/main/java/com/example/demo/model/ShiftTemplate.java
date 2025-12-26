@@ -1,111 +1,39 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-@Entity
-@Table(name = "shift_templates")
 public class ShiftTemplate {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String templateName;
-
     private LocalTime startTime;
-
     private LocalTime endTime;
-
     private String requiredSkills;
-
-    @ManyToOne
-    @JoinColumn(name = "department_id")
     private Department department;
 
-    @OneToMany(mappedBy = "shiftTemplate", cascade = CascadeType.ALL)
-    private List<GeneratedShiftSchedule> schedules;
+    public ShiftTemplate() {}
 
-    public ShiftTemplate() {
-}
-
-public ShiftTemplate(
-        String templateName,
-        LocalTime startTime,
-        LocalTime endTime,
-        String requiredSkills,
-        Department department
-) {
-    this.templateName = templateName;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.requiredSkills = requiredSkills;
-    this.department = department;
-}
-
-public ShiftTemplate(
-        Long id,
-        String templateName,
-        LocalTime startTime,
-        LocalTime endTime,
-        String requiredSkills,
-        Department department
-) {
-    this.id = id;
-    this.templateName = templateName;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.requiredSkills = requiredSkills;
-    this.department = department;
-}
-
-
-    public Long getId() {
-        return id;
+    public ShiftTemplate(String name, LocalTime start, LocalTime end, String skills, Department dept) {
+        this.templateName = name;
+        this.startTime = start;
+        this.endTime = end;
+        this.requiredSkills = skills;
+        this.department = dept;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Set<String> getRequiredSkillsSet() {
+        return Arrays.stream(requiredSkills.split(",")).collect(Collectors.toSet());
     }
 
-    public String getTemplateName() {
-        return templateName;
-    }
-
-    public void setTemplateName(String templateName) {
-        this.templateName = templateName;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public String getRequiredSkills() {
-        return requiredSkills;
-    }
-
-    public void setRequiredSkills(String requiredSkills) {
-        this.requiredSkills = requiredSkills;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
+    public String getTemplateName() { return templateName; }
+    public void setTemplateName(String templateName) { this.templateName = templateName; }
+    public LocalTime getStartTime() { return startTime; }
+    public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
+    public LocalTime getEndTime() { return endTime; }
+    public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
+    public String getRequiredSkills() { return requiredSkills; }
+    public void setRequiredSkills(String requiredSkills) { this.requiredSkills = requiredSkills; }
+    public Department getDepartment() { return department; }
 }
