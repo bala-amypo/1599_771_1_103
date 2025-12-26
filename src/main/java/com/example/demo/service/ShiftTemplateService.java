@@ -5,7 +5,7 @@ import com.example.demo.model.ShiftTemplate;
 
 public interface ShiftTemplateService {
 
-    ShiftTemplate create(Long departmentId, ShiftTemplate shiftTemplate);
+    ShiftTemplate create(ShiftTemplate template);
 
     List<ShiftTemplate> getByDepartment(Long departmentId);
 
