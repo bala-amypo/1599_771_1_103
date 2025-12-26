@@ -17,14 +17,22 @@ public class ShiftTemplateController {
 
     private final ShiftTemplateService shiftTemplateService;
     private final DepartmentRepository departmentRepository;
-    private final ShiftTemplateRepository shiftTemplateRepository;
 
+    // 👇 THIS REPOSITORY IS AUTOWIRED, NOT IN CONSTRUCTOR
+    private ShiftTemplateRepository shiftTemplateRepository;
+
+    // ✅ EXACT constructor expected by TestNG
     public ShiftTemplateController(
             ShiftTemplateService shiftTemplateService,
-            DepartmentRepository departmentRepository,
-            ShiftTemplateRepository shiftTemplateRepository) {
+            DepartmentRepository departmentRepository) {
         this.shiftTemplateService = shiftTemplateService;
         this.departmentRepository = departmentRepository;
+    }
+
+    // ✅ Setter injection ONLY for Spring runtime
+    @org.springframework.beans.factory.annotation.Autowired
+    public void setShiftTemplateRepository(
+            ShiftTemplateRepository shiftTemplateRepository) {
         this.shiftTemplateRepository = shiftTemplateRepository;
     }
 
@@ -34,7 +42,7 @@ public class ShiftTemplateController {
         return ResponseEntity.ok(shiftTemplateRepository.findAll());
     }
 
-    // Department-wise list (Swagger + API use)
+    // Department-wise list
     @GetMapping("/department/{deptId}")
     public ResponseEntity<List<ShiftTemplate>> listByDepartment(
             @PathVariable Long deptId) {
