@@ -7,13 +7,7 @@ public class AvailabilityDto {
     private Boolean available;
     private LocalDate availableDate;
 
-    public AvailabilityDto() {
-    }
-
-    public AvailabilityDto(Boolean available, LocalDate availableDate) {
-        this.available = available;
-        this.availableDate = availableDate;
-    }
+    public AvailabilityDto() {}
 
     public Boolean getAvailable() {
         return available;
