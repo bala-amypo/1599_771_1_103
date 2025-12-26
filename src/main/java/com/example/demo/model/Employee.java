@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Employee {
+
     private Long id;
     private String fullName;
     private String email;
@@ -26,19 +27,25 @@ public class Employee {
     }
 
     public Set<String> getSkills() {
-        return Arrays.stream(skills.split(",")).collect(Collectors.toSet());
+        return Arrays.stream(skills.split(","))
+                .map(String::trim)
+                .collect(Collectors.toSet());
     }
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
+
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
+
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
-    public String getSkillsRaw() { return skills; }
-    public void setSkills(String skills) { this.skills = skills; }
+
     public Integer getMaxWeeklyHours() { return maxWeeklyHours; }
     public void setMaxWeeklyHours(Integer maxWeeklyHours) { this.maxWeeklyHours = maxWeeklyHours; }
+
+    public void setSkills(String skills) { this.skills = skills; }
 }

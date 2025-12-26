@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ShiftTemplate {
+
     private Long id;
     private String templateName;
     private LocalTime startTime;
@@ -15,25 +16,32 @@ public class ShiftTemplate {
 
     public ShiftTemplate() {}
 
-    public ShiftTemplate(String name, LocalTime start, LocalTime end, String skills, Department dept) {
-        this.templateName = name;
-        this.startTime = start;
-        this.endTime = end;
-        this.requiredSkills = skills;
-        this.department = dept;
+    public ShiftTemplate(String templateName, LocalTime startTime, LocalTime endTime,
+                         String requiredSkills, Department department) {
+        this.templateName = templateName;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.requiredSkills = requiredSkills;
+        this.department = department;
     }
 
     public Set<String> getRequiredSkillsSet() {
-        return Arrays.stream(requiredSkills.split(",")).collect(Collectors.toSet());
+        return Arrays.stream(requiredSkills.split(","))
+                .map(String::trim)
+                .collect(Collectors.toSet());
     }
 
     public String getTemplateName() { return templateName; }
     public void setTemplateName(String templateName) { this.templateName = templateName; }
+
     public LocalTime getStartTime() { return startTime; }
     public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
+
     public LocalTime getEndTime() { return endTime; }
     public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
+
     public String getRequiredSkills() { return requiredSkills; }
     public void setRequiredSkills(String requiredSkills) { this.requiredSkills = requiredSkills; }
+
     public Department getDepartment() { return department; }
 }

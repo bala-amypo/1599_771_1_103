@@ -30,3 +30,39 @@ public class Department {
     public void setDescription(String description) { this.description = description; }
     public String getRequiredSkillsRaw() { return requiredSkills; }
 }
+package com.example.demo.model;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+public class Department {
+
+    private Long id;
+    private String name;
+    private String description;
+    private String requiredSkills;
+
+    public Department() {}
+
+    public Department(String name, String description, String requiredSkills) {
+        this.name = name;
+        this.description = description;
+        this.requiredSkills = requiredSkills;
+    }
+
+    public Set<String> getRequiredSkills() {
+        return Arrays.stream(requiredSkills.split(","))
+                .map(String::trim)
+                .collect(Collectors.toSet());
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+}
