@@ -1,11 +1,12 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.JwtUtil;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.LoginResponse;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
-import com.example.demo.config.JwtUtil;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,15 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // ✅ LOGIN API
+    // ================= REGISTER =================
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody User user) {
+
+        User savedUser = userService.register(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
+
+    // ================= LOGIN =================
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 
