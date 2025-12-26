@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.dto.LoginRequest;
-import com.example.demo.dto.LoginResponse;
+import com.example.demo.config.JwtUtil;
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
-import com.example.demo.config.JwtUtil;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,25 +20,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userService.register(user);
+    public ResponseEntity<User> register(@RequestBody User user) {
+        return ResponseEntity.ok(userService.register(user));
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request) {
-        User user = userService.findByEmail(request.getEmail());
-
-        String token = jwtUtil.generateToken(
-                user.getEmail(),
-                user.getRole(),
-                user.getId()
-        );
-
-        return new LoginResponse(
-                token,
-                user.getId(),
-                user.getEmail(),
-                user.getRole()
-        );
+    public ResponseEntity<String> login(@RequestBody User user) {
+        User u = userService.findByEmail(user.getEmail());
+        String token = jwtUtil.generateToken(u.getEmail(), u.getRole(), u.getId());
+        return ResponseEntity.ok(token);
     }
 }

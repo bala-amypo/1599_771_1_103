@@ -2,9 +2,14 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.model.Employee;
 import com.example.demo.service.EmployeeService;
 
+@RestController
+@RequestMapping("/api/employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
@@ -13,16 +18,24 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    public Response<List<Employee>> list() {
-        return new Response<>(employeeService.getAll());
+    @PostMapping("/register")
+    public ResponseEntity<Employee> create(@RequestBody Employee employee) {
+        return ResponseEntity.ok(employeeService.createEmployee(employee));
     }
 
-    public Response<Employee> get(Long id) {
-        return new Response<>(employeeService.getEmployee(id));
+    @GetMapping("/all")
+    public ResponseEntity<List<Employee>> list() {
+        return ResponseEntity.ok(employeeService.getAll());
     }
 
-    public Response<String> delete(Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> get(@PathVariable Long id) {
+        return ResponseEntity.ok(employeeService.getEmployee(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
-        return new Response<>("Deleted");
+        return ResponseEntity.ok("Deleted");
     }
 }

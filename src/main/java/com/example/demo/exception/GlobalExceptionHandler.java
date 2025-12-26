@@ -8,44 +8,26 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex) {
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(ex.getMessage());
-    }
-
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntime(RuntimeException ex) {
+    public ResponseEntity<ApiErrorResponse> handleRuntime(RuntimeException ex) {
 
-        String message = ex.getMessage().toLowerCase();
+        String msg = ex.getMessage();
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
-        if (message.contains("exists")) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(ex.getMessage());
-        }
-
-        if (message.contains("after")) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(ex.getMessage());
-        }
-
-        if (message.contains("must") || message.contains("invalid")) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(ex.getMessage());
-        }
-
-        if (message.contains("not found")) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(ex.getMessage());
+        if (msg != null) {
+            if (msg.contains("exists")) {
+                status = HttpStatus.BAD_REQUEST;
+            } else if (msg.contains("after")) {
+                status = HttpStatus.BAD_REQUEST;
+            } else if (msg.contains("not found")) {
+                status = HttpStatus.NOT_FOUND;
+            } else if (msg.contains("must") || msg.contains("invalid")) {
+                status = HttpStatus.BAD_REQUEST;
+            }
         }
 
         return ResponseEntity
-                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ex.getMessage());
+                .status(status)
+                .body(new ApiErrorResponse(status.value(), msg));
     }
 }
