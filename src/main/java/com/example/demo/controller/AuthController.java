@@ -28,16 +28,12 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
     }
-
-    // ================= REGISTER =================
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
 
         User savedUser = userService.register(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
-
-    // ================= LOGIN =================
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 
