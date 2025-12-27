@@ -11,6 +11,5 @@ public interface ShiftTemplateService {
 
     ShiftTemplate getTemplate(Long id);
 
-    // ✅ ADD THIS
     List<ShiftTemplate> getAll();
 }

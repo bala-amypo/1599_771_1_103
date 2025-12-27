@@ -13,7 +13,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // Constructor Injection ONLY (as per document)
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
@@ -31,7 +30,6 @@ public class UserServiceImpl implements UserService {
             user.setRole("ANALYST");
         }
 
-        // Password hashing (BCrypt)
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);
