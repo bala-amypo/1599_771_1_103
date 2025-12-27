@@ -17,7 +17,6 @@ public class ShiftTemplateController {
     private final ShiftTemplateService shiftTemplateService;
     private final DepartmentRepository departmentRepository;
 
-    // ⚠️ Constructor EXACTLY as expected by TestNG
     public ShiftTemplateController(
             ShiftTemplateService shiftTemplateService,
             DepartmentRepository departmentRepository) {
@@ -25,13 +24,11 @@ public class ShiftTemplateController {
         this.departmentRepository = departmentRepository;
     }
 
-    // ✅ REQUIRED BY TEST (priority 40)
     @GetMapping
     public ResponseEntity<List<ShiftTemplate>> list() {
         return ResponseEntity.ok(shiftTemplateService.getAll());
     }
 
-    // List by department (Swagger + API)
     @GetMapping("/department/{deptId}")
     public ResponseEntity<List<ShiftTemplate>> listByDepartment(
             @PathVariable Long deptId) {
